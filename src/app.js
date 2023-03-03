@@ -24,7 +24,8 @@ app.set("views", path.join(__dirname, "/views"))
 
 /* RUTAS */
 
-
+const mainRouter = require("./routes/main")
+app.use("/", mainRouter);
 
 app.listen(PORT, () => {
     console.log(`Servidor abierto en el puerto ${PORT}`)
