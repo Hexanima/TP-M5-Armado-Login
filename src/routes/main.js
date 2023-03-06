@@ -10,4 +10,6 @@ router.post("/", validator, controller.formSend);
 
 router.get("/hola", controller.hola);
 
+router.post("/reset", controller.reset);
+
 module.exports = router;

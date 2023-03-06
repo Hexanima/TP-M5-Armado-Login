@@ -11,7 +11,8 @@ controller = {
 
     if (!errors.isEmpty()) {
       res.render("index", {
-        errors: errors.mapped()
+        errors: errors.mapped(),
+        session: req.session || undefined
       });
     } else {
       let colorName = req.body.color;
@@ -43,8 +44,13 @@ controller = {
         remember: req.body.remember,
       };
 
+      let tiempoDeVidaCookie = new Date(Date.now() + 60000);
+
       if (req.body.remember) {
-        res.cookie("userArmadoLogin", req.session.user)
+        res.cookie("userArmadoLogin", req.session.user, {
+          expires: tiempoDeVidaCookie,
+          httpOnly: true,
+        });
       }
 
       res.locals.user = req.session.user;
@@ -55,6 +61,16 @@ controller = {
     res.render("hola", {
       session: req.session,
     });
+  },
+  reset: (req, res) => {
+    req.session.destroy();
+    if(req.cookies.userArmadoLogin) {
+      res.cookie("userArmadoLogin", "", {
+        maxAge: -1
+      });
+    }
+
+    res.redirect("/")
   },
 };
 

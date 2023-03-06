@@ -57,6 +57,9 @@
         <form action="/hola" method="get" class="input">
           <button type="submit">Otra vista</button>
         </form>
+        <form action="/reset" method="post" class="input">
+          <button type="submit">Olvidar el color</button>
+        </form>
        <% } %>
       <div class="mensaje">
         <% if (locals.session && session.user) { %>
