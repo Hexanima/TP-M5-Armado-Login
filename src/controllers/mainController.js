@@ -43,6 +43,10 @@ controller = {
         remember: req.body.remember,
       };
 
+      if (req.body.remember) {
+        res.cookie("userArmadoLogin", req.session.user)
+      }
+
       res.locals.user = req.session.user;
       res.redirect("/");
     }

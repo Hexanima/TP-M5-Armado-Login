@@ -2,6 +2,7 @@ const express = require("express")
 const session = require("express-session")
 const cookieParser = require("cookie-parser")
 const path = require("path")
+const cookieCheck = require("./middlewares/cookieCheck");
 
 const app = express();
 const PORT = 3000;
@@ -17,6 +18,7 @@ app.use(session({
     saveUninitialized: true
 }))
 app.use(cookieParser())
+app.use(cookieCheck);
 
 /* CONFIGURACIONES */
 app.set("view engine", "ejs");
