@@ -8,4 +8,6 @@ router.get("/", controller.index);
 
 router.post("/", validator, controller.formSend);
 
+router.get("/hola", controller.hola);
+
 module.exports = router;

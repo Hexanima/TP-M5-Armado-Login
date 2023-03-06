@@ -43,13 +43,13 @@ main form {
     width: 100%;
 }
 
-main form div.input {
+main form .input {
     display: flex;
     flex-direction: column;
     gap: 5px;
     width: 100%;
 }
-main form div.input.c {
+main form .input.c {
     flex-direction: row;
 }
 

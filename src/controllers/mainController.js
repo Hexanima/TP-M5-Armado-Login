@@ -2,7 +2,6 @@ const { validationResult } = require("express-validator");
 
 controller = {
   index: (req, res) => {
-
     res.render("index", {
       session: req.session,
     });
@@ -10,27 +9,48 @@ controller = {
   formSend: (req, res) => {
     let errors = validationResult(req);
 
-    if(errors.isEmpty()) {
-        req.session.user = {
-            name: req.body.name,
-            email: req.body.email,
-            color: req.body.color,
-            age: req.body.age,
-            remember: req.body.remember,
-            mensaje: `Hola ${req.body.name}, elegiste el color: ${req.body.color}, tu email es: ${req.body.email} y tu edad es: ${req.body.age}`,
-          };
-      
-          res.locals.user = req.session.user;
-          res.redirect("/");
+    if (!errors.isEmpty()) {
+      res.render("index", {
+        errors: errors.mapped()
+      });
     } else {
-      console.log(errors)
-        res.render("index", {
-            errors: errors.mapped(),
-            session : {
-                user: req.body
-            }
-        })
+      let colorName = req.body.color;
+      let color = "white";
+
+      switch (colorName) {
+        case "Cyan":
+          color = "lightcyan";
+          break;
+        case "Azul":
+          color = "lightblue";
+          break;
+        case "Coral":
+          color = "lightcoral";
+          break;
+        case "Verde":
+          color = "lightgreen";
+          break;
+        case "Verde marino":
+          color = "lightseagreen";
+          break;
+      }
+      req.session.user = {
+        name: req.body.name,
+        email: req.body.email,
+        color,
+        colorName,
+        age: req.body.age,
+        remember: req.body.remember,
+      };
+
+      res.locals.user = req.session.user;
+      res.redirect("/");
     }
+  },
+  hola: (req, res) => {
+    res.render("hola", {
+      session: req.session,
+    });
   },
 };
 

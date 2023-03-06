@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head') %>
+  <body <% if (locals.session && session.user) { %>
+    style="background-color: <%= session.user.color %>;" <% } %>>
+    <main>
+      <div class="mensaje">
+        <% if (locals.session && session.user) { %> <%= `${session.user.name},
+        gracias por visitarnos.`%> <% } %>
+      </div>
+      <form action="/" method="get">
+        <div class="input">
+          <button type="submit">Volver al home</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
