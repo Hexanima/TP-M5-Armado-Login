@@ -1,7 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('partials/head') %>
-<body>
-    Hola
-</body>
+  <%- include('partials/head') %>
+  <body <% if (locals.session && session.user) { %>
+    style="background-color: <%=  session.user.color %>;"
+    <% } %>>
+    <main>
+      <form action="/" method="post">
+        <div class="input">
+          <label for="name">Ingrese su nombre</label>
+          <input type="text" name="name" id="name" value="<%= session.user ? session.user.name : null %>"/>
+          <% if (locals.errors && errors.name) { %>
+            <span class="error">*<%= errors.name.msg %></span>
+            <% } %>
+        </div>
+        <div class="input">
+          <label for="email">Ingrese su email</label>
+          <input type="email" name="email" id="email" value="<%= session.user ? session.user.email : null %>" />
+          <% if (locals.errors && errors.email) { %>
+            <span class="error">*<%= errors.email.msg %></span>
+            <% } %>
+        </div>
+        <div class="input">
+          <label for="color">Elija un color (colores claros)</label>
+          <select name="color" id="color">
+            <option value="lightcyan" <% if (locals.session && session.user && session.user.color === "lightcyan") { %>
+              selected
+             <% } %>>Cyan</option>
+            <option value="lightblue" <% if (locals.session && session.user && session.user.color === "lightblue") { %> selected <% } %>>Azul</option>
+            <option value="lightcoral" <% if (locals.session && session.user && session.user.color === "lightcoral") { %>
+              selected
+             <% } %>>Coral</option>
+            <option value="lightgreen" <% if (locals.session && session.user && session.user.color === "lightgreen") { %>
+              selected
+             <% } %>>Verde</option>
+            <option value="lightseagreen" <% if (locals.session && session.user && session.user.color === "lightseagreen") { %>
+              selected
+             <% } %>>Verde marino</option>
+          </select>
+        </div>
+        <div class="input">
+          <label for="age">Ingrese su edad</label>
+          <input type="text" name="age" id="age" value="<%= session.user ? session.user.age : null%>"/>
+          <% if (locals.errors && errors.age) { %>
+            <span class="error">*<%= errors.age.msg %></span>
+            <% } %>
+        </div>
+        <div class="input c">
+          <input type="checkbox" name="remember" id="remember">
+          <label for="remember">Recordar</label>
+        </div>
+        <div class="input">
+          <button type="submit">Enviar</button>
+        </div>
+      </form>
+      <div class="mensaje"><%= session.user ? session.user.mensaje : null %></div>
+    </main>
+  </body>
 </html>

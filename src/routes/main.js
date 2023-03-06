@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/mainController")
+const controller = require("../controllers/mainController");
 
-router.get("/", controller.index)
+const validator = require("../validations/formValidation");
 
-module.exports = router
+router.get("/", controller.index);
+
+router.post("/", validator, controller.formSend);
+
+module.exports = router;
